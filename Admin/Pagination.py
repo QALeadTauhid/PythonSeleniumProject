@@ -41,38 +41,77 @@ wait4 = WebDriverWait(driver, 10)
 menu = wait4.until(EC.element_to_be_clickable((By.XPATH, "(//span[@class='MuiBox-root css-hkavrg'][normalize-space()='New'])[2]")))
 menu.click()
 
+# # Wait setup
+# wait = WebDriverWait(driver, 10)
+# all_customers = []
+#
+# # Function to fetch customers from the current page
+# def fetch_customers_from_page():
+#     rows = wait.until(EC.presence_of_all_elements_located((By.XPATH, "//tbody/tr[td[1]]")))
+#     return rows
+#
+# # Loop through pages and fetch customers
+# while True:
+#     # Fetch customers from the current page
+#     rows = fetch_customers_from_page()
+#
+#     # Iterate through all rows and fetch customer names
+#     for index, row in enumerate(rows, start=1):
+#         try:
+#             customer_name_xpath = f"//tbody/tr[{index}]/td[1]/p[1]"
+#             customer_name = row.find_element(By.XPATH, customer_name_xpath).text
+#             all_customers.append(customer_name)
+#             print(f"Customer {index}: {customer_name}")
+#         except Exception as e:
+#             print(f"Error fetching customer name for row {index}: {e}")
+#
+#     # Check if the "Next" button is present and enabled
+#     try:
+#         next_button = wait.until(EC.element_to_be_clickable((By.XPATH, "//button[@aria-label='Go to next page']//*[name()='svg']")))
+#         next_button.click()  # Click "Next" to move to the next page
+#         time.sleep(2)  # Wait for the next page to load
+#     except Exception:
+#         print("No more pages to load.")
+#         break  # Exit the loop if the "Next" button is not found or disabled
+#
+# # Print the total number of customers found
+# print(f"Total customers found: {len(all_customers)}")
+
 # Wait setup
 wait = WebDriverWait(driver, 10)
 all_customers = []
 
+
 # Function to fetch customers from the current page
 def fetch_customers_from_page():
-    rows = wait.until(EC.presence_of_all_elements_located((By.XPATH, "//tbody/tr[td[1]]")))
-    return rows
+    """Fetches customer rows from the current page."""
+    return wait.until(EC.presence_of_all_elements_located((By.XPATH, "//tbody/tr[td[1]]")))
 
-# Loop through pages and fetch customers
+
 while True:
-    # Fetch customers from the current page
-    rows = fetch_customers_from_page()
+    rows = fetch_customers_from_page()  # Fetch all rows on the page
 
-    # Iterate through all rows and fetch customer names
     for index, row in enumerate(rows, start=1):
         try:
-            customer_name_xpath = f"//tbody/tr[{index}]/td[1]/p[1]"
-            customer_name = row.find_element(By.XPATH, customer_name_xpath).text
+            # Use relative XPath inside the row
+            customer_name = row.find_element(By.XPATH, "./td[1]").text  # No need for <p>
             all_customers.append(customer_name)
             print(f"Customer {index}: {customer_name}")
         except Exception as e:
             print(f"Error fetching customer name for row {index}: {e}")
 
-    # Check if the "Next" button is present and enabled
+    # Attempt to click "Next" button
     try:
-        next_button = wait.until(EC.element_to_be_clickable((By.XPATH, "//button[@aria-label='Go to next page']//*[name()='svg']")))
-        next_button.click()  # Click "Next" to move to the next page
-        time.sleep(2)  # Wait for the next page to load
+        next_button = wait.until(
+            EC.element_to_be_clickable((By.XPATH, "//button[@aria-label='Go to next page']//*[name()='svg']")))
+        next_button.click()
+
+        # Wait for new rows to load
+        wait.until(EC.staleness_of(rows[0]))  # Ensures old rows disappear
+        time.sleep(2)  # Small delay
     except Exception:
         print("No more pages to load.")
-        break  # Exit the loop if the "Next" button is not found or disabled
+        break  # Exit loop if "Next" button is not found
 
-# Print the total number of customers found
+# Print total customers
 print(f"Total customers found: {len(all_customers)}")
