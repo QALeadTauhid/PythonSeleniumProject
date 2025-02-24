@@ -1,14 +1,10 @@
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-import time
-
-
-
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+import time
+from collections import Counter
+
 
 # Set up Chrome WebDriver
 driver = webdriver.Chrome()
@@ -116,11 +112,6 @@ driver.find_element(By.XPATH, "(//button[normalize-space()='Login'])[1]").click(
 # # Print total customers
 # print(f"Total customers found: {len(all_customers)}")
 
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-import time
-from collections import Counter
 
 # Wait setup
 wait = WebDriverWait(driver, 20)
