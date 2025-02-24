@@ -10,7 +10,7 @@ from collections import Counter
 driver = webdriver.Chrome()
 
 # Open PTM
-driver.get("https://admin-ptm-panel.paytome.co/login")
+driver.get("https://admin-ptm-panel.pay2me.co/login")
 
 driver.maximize_window()
 
@@ -18,11 +18,11 @@ driver.maximize_window()
 
 wait = WebDriverWait(driver, 20)  # Waits up to 10 seconds
 email_input = wait.until(EC.presence_of_element_located((By.XPATH, "//input[contains(@placeholder, 'johndoe')]")))
-email_input.send_keys("itteam.9@aieus.com")
+email_input.send_keys("--------")
 
 #Login in to the admin
 # driver.find_element(By.XPATH, "//input[@placeholder='johndoe']").send_keys("itteam.9@aieus.com")
-driver.find_element(By.XPATH, "//input[@id='auth-login-v2-password']").send_keys("sVs$j3z201IV")
+driver.find_element(By.XPATH, "//input[@id='auth-login-v2-password']").send_keys("-------")
 driver.find_element(By.XPATH, "(//button[normalize-space()='Login'])[1]").click()
 
 
