@@ -18,7 +18,7 @@ email_input = wait.until(EC.presence_of_element_located((By.XPATH, "//input[cont
 email_input.send_keys("-------")
 
 #Login in to the admin
-# driver.find_element(By.XPATH, "//input[@placeholder='johndoe']").send_keys("itteam.9@aieus.com")
+# driver.find_element(By.XPATH, "//input[@placeholder='johndoe']").send_keys("---------")
 driver.find_element(By.XPATH, "//input[@id='auth-login-v2-password']").send_keys("------")
 driver.find_element(By.XPATH, "(//button[normalize-space()='Login'])[1]").click()
 
