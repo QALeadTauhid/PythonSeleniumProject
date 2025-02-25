@@ -11,9 +11,9 @@ import time
 driver = webdriver.Chrome()
 
 # Define login details
-LOGIN_URL = "https://admin-ptm-panel.pay2me.co/login"
-USERNAME = "----"
-PASSWORD = "-------"
+LOGIN_URL = "https://admin-ptm-panel.paytome.co/login"
+USERNAME = "---------"
+PASSWORD = "----------"
 
 # Call the reusable login function
 login_to_application(driver, USERNAME, PASSWORD, LOGIN_URL)
