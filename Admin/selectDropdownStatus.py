@@ -10,13 +10,18 @@ from Admin.CommonLogin import login_to_application
 driver = webdriver.Chrome()
 
 # Define login details
-LOGIN_URL = "https://admin-ptm-panel.pay2me.co/login"
-USERNAME = "---------"
+LOGIN_URL = "https://admin-ptm-panel.paytome.co/login"
+USERNAME = "--------------"
+PASSWORD = "----------"
 
 # Call the reusable login function
 login_to_application(driver, USERNAME, PASSWORD, LOGIN_URL)
 
+# Now proceed with your test actions after login
 print("Performing test cases after login...")
+
+# Wait setup
+wait = WebDriverWait(driver, 20)  # Increased timeout to handle slow loading
 
 # Wait for the "user" section to be clickable
 user_menu = wait.until(EC.presence_of_element_located((By.XPATH, "//legend[normalize-space()='user']")))

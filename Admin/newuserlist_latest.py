@@ -12,8 +12,8 @@ driver.maximize_window()  # Ensure all elements are visible
 
 # Define login details
 LOGIN_URL = "https://admin-ptm-panel.paytome.co/login"
-USERNAME = ".............."
-PASSWORD = "...................."
+USERNAME = "--------------"
+PASSWORD = "----------"
 
 # Call the reusable login function
 login_to_application(driver, USERNAME, PASSWORD, LOGIN_URL)
@@ -93,13 +93,13 @@ first_page_data = fetch_table_data()
 
 # Print structured output
 print("\nExtracted Data:")
-print(f"{'Customer Name':<20} {'Account ID':<15} {'Country':<20} {'IP Address':<20} {'Date':<20} "
-      f"{'Merchant Account':<20} {'Company Account':<20} {'Profile Update':<20} {'Status':<20} {'Account Type':<20}")
+print(f"{'Customer Name':<30} {'Account ID':<20} {'Country':<25} {'IP Address':<20} {'Date':<20} "
+      f"{'Merchant Account':<10} {'Company Account':<10} {'Profile Update':<20} {'Status':<20} {'Account Type':<20}")
 print("=" * 80)
 
 for customer_name, account_id, country, ip_address, date_acc, merchant_account, company_account, profile_update, status, account_type in first_page_data:
-    print(f"{customer_name:<20} {account_id:<15} {country:<20} {ip_address:<20} {date_acc:<20} "
-          f"{merchant_account:<20} {company_account:<20} {profile_update:<20} {status:<20} {account_type:<20}")
+    print(f"{customer_name:<30} {account_id:<20} {country:<25} {ip_address:<20} {date_acc:<20} "
+          f"{merchant_account:<20} {company_account:<20} {profile_update:<20} {status:<10} {account_type:<10}")
 
 # Save data to CSV
 csv_filename = 'first_page_data.csv'
