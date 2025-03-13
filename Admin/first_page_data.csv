@@ -1,11 +1,11 @@
-Customer Name,Account ID,Total Invoice,Order Date,Order Time,Due Date,Paid time,Invoice Amount,Paid Amount,Status,Payment Link
-Nostrum obcaecati eo,P12240302-01,116,03-02-2025,09:55 AM,03-02-2025,N/A,$16.00,N/A,NEW INVOICE,https://pay2me.co/i/7birnkji4
-Test Carol Mills,P10241301-01,23,03-02-2025,04:10 AM,03-02-2025,N/A,$110.00,N/A,NEW INVOICE,https://pay2me.co/i/gzjyly1km
-Test Cairo Townsend,P12232111-06,51,02-26-2025,05:25 AM,03-28-2025,N/A,$39.54,N/A,NEW INVOICE,https://pay2me.co/i/qwxmvxsci
-Test Cairo Townsend,P12232111-06,51,02-26-2025,05:00 AM,03-31-2025,N/A,$751.04,N/A,NEW INVOICE,https://pay2me.co/i/cnbz4vsmc
-Test Cairo Townsend,P12232111-06,51,02-25-2025,10:24 AM,02-25-2025,N/A,"$9,998,990,016.00",N/A,NEW INVOICE,https://pay2me.co/i/lzihlt28a
-Test Cairo Townsend,P12232111-06,51,02-25-2025,08:36 AM,03-12-2025,N/A,$166.00,N/A,NEW INVOICE,https://pay2me.co/i/ttpsoiict
-Test Cairo Townsend,P12232111-06,51,02-19-2025,11:25 PM,02-20-2025,N/A,$575.00,N/A,NEW INVOICE,https://pay2me.co/i/szscqqptd
-Nostrum obcaecati eo,P12240302-01,116,02-19-2025,12:16 AM,02-19-2025,N/A,$48.96,N/A,NEW INVOICE,https://pay2me.co/i/2eyubxwtu
-Test Carol Mills,P10241301-01,23,02-17-2025,12:09 AM,02-17-2025,N/A,$80.00,N/A,NEW INVOICE,https://pay2me.co/i/reii1y5wn
-Test business name,P01242101-22,12,02-16-2025,04:48 AM,02-16-2025,05:02 AM,$759.00,$3.14,CHARGE FAILED,https://pay2me.co/i/qvaxatg9u
+Customer Name,Account ID,Total Invoice,Order Date,Order Time,Paid Date,Paid time,Invoice Amount,Paid Amount,Status,Payment Link
+Nostrum obcaecati eo,P12240302-01,116,03-11-2025,04:15 AM,03-11-2025,04:16 AM,$9.00,$9.00,PAID INVOICE,https://pay2me.co/i/mdoikmkwp
+test TestInvoice DBA323432-234.,P12232102-23,23,03-03-2025,09:23 AM,03-03-2025,09:25 AM,$16.00,$16.00,PAID INVOICE,https://pay2me.co/i/hoz1msemw
+test TestInvoice DBA323432-234.,P12232102-23,23,03-03-2025,09:23 AM,03-03-2025,09:24 AM,"$1,740.00","$1,740.00",PAID INVOICE,https://pay2me.co/i/rkmie9ged
+test TestInvoice DBA323432-234.,P12232102-23,23,02-17-2025,12:10 AM,02-17-2025,12:11 AM,$16.00,$16.80,PAID INVOICE,https://pay2me.co/i/lfmj1xal5
+Web Tech BD,P12232109-02,7,02-16-2025,04:31 AM,02-25-2025,07:14 AM,$9.00,$9.41,PAID INVOICE,https://pay2me.co/i/fm8wfzbij
+Web Tech BD,P12232109-02,7,02-16-2025,03:36 AM,02-25-2025,07:17 AM,$9.00,$9.41,PAID INVOICE,https://pay2me.co/i/rk55koozr
+Nostrum obcaecati eo,P12240302-01,116,02-12-2025,10:56 PM,02-16-2025,02:19 AM,$9.00,$8.95,PAID INVOICE,https://pay2me.co/i/ajhenhrrh
+Nostrum obcaecati eo,P12240302-01,116,02-10-2025,11:34 PM,02-10-2025,11:41 PM,$15.00,$14.92,PAID INVOICE,https://pay2me.co/i/vtw1vgeyt
+Nostrum obcaecati eo,P12240302-01,116,02-10-2025,11:32 PM,02-11-2025,03:10 AM,$66.00,$65.67,PAID INVOICE,https://pay2me.co/i/ywwdbzxcy
+Beau Blackwell,P11241701-01,4,02-05-2025,03:38 AM,02-05-2025,04:33 AM,$181.20,$181.20,PAID INVOICE,https://pay2me.co/i/emmbjpjjc
