@@ -124,7 +124,7 @@ for idx, (customer_name, account_id, total_invoice, order_date, order_time, due_
           f"{due_date:<20} {paid_time:<20} {invoice_amount:<20} {paid_amount:<20} {status:<20} {payment_link:<10}")
 
 # Save data to CSV
-csv_filename = 'all_pages_data.csv'
+csv_filename = 'New_invoice_all_pages_data.csv'
 with open(csv_filename, mode='w', newline='', encoding='utf-8') as file:
     writer = csv.writer(file)
     writer.writerow(['Customer Name', 'Account ID', 'Total Invoice', 'Order Date', 'Order Time', 'Due Date', 'Paid time', 'Invoice Amount', 'Paid Amount', 'Status', 'Payment Link'])

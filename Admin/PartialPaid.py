@@ -11,9 +11,9 @@ driver = webdriver.Chrome()
 driver.maximize_window()  # Ensure all elements are visible
 
 # Define login details
-LOGIN_URL = "https://admin-ptm-panel.paytome.co/login"
-USERNAME = "-------------"
-PASSWORD = "--------"
+LOGIN_URL = "https://admin-ptm-panel.pay2me.co/login"
+USERNAME = "-----------"
+PASSWORD = "++++sVs$j+++3z201IV----"
 
 # Call the reusable login function
 login_to_application(driver, USERNAME, PASSWORD, LOGIN_URL)
@@ -33,7 +33,7 @@ invoiceList.click()
 
 #New
 wait4 = WebDriverWait(driver, 10)
-menu = wait4.until(EC.element_to_be_clickable((By.XPATH, "//span[normalize-space()='Full Paid']")))
+menu = wait4.until(EC.element_to_be_clickable((By.XPATH, "//span[normalize-space()='Partial Paid']")))
 
 menu.click()
 
@@ -69,15 +69,17 @@ def fetch_table_data():
             paid_date = row.find_element(By.XPATH, ".//td[5]/p[1]/span[1]").text.strip() if row.find_elements(By.XPATH, ".//td[5]/p[1]/span[1]") else "N/A"
             paid_time = row.find_element(By.XPATH, ".//td[5]/p[1]/span[2]").text.strip() if row.find_elements(By.XPATH, ".//td[5]/p[1]/span[2]") else "N/A"
             invoice_amount = row.find_element(By.XPATH, ".//td[6]/p[1]/span[1]").text.strip() if row.find_elements(By.XPATH, ".//td[6]/p[1]/span[1]") else "N/A"
-            paid_amount = row.find_element(By.XPATH,".//td[6]/p[1]/span[2]").text.strip() if row.find_elements(By.XPATH, ".//td[6]/p[1]/span[2]") else "N/A"
+            partial_amount = row.find_element(By.CLASS_NAME,"text-red-strong").text.strip() if row.find_elements(By.CLASS_NAME, "text-red-strong") else "N/A"
+            paid_amount = row.find_element(By.CLASS_NAME,"text-green-tealish").text.strip() if row.find_elements(By.CLASS_NAME, "text-green-tealish") else "N/A"
+
             status = row.find_element(By.XPATH, ".//td[8]/div[1]/div[1]/a[1]/button[1]").text.strip() if row.find_elements(By.XPATH, ".//td[8]/div[1]/div[1]/a[1]/button[1]") else "N/A"
             try:
                 payment_link = row.find_element(By.XPATH, ".//td[8]/div[2]/a[1]").get_attribute("href")
             except:
                 payment_link = "N/A"
 
-            print(f"Row {index + 1}: {customer_name}, {account_id}, {total_invoice}, {order_date}, {order_time}, {paid_date}, {paid_time} {invoice_amount}, {paid_amount}, {status}, {payment_link}")
-            data.append((customer_name, account_id, total_invoice, order_date, order_time, paid_date, paid_time, invoice_amount, paid_amount, status, payment_link))
+            print(f"Row {index + 1}: {customer_name}, {account_id}, {total_invoice}, {order_date}, {order_time}, {paid_date}, {paid_time}, {invoice_amount},{partial_amount},{paid_amount},{status},{payment_link}")
+            data.append((customer_name, account_id, total_invoice, order_date, order_time, paid_date, paid_time, invoice_amount, partial_amount, paid_amount, status, payment_link))
 
         except Exception as e:
             print(f"Skipping row {index + 1} due to error: {e}")
@@ -116,18 +118,18 @@ while True:
 # Print structured output
 print("\nExtracted Data:")
 print(f"{'No.':<5} {'Customer Name':<40} {'Account ID':<20} {'Total Invoice':<25} {'Order Date':<20} {'Order Time':<20} "
-      f"{'Paid Date':<20} {'Paid Time':<20} {'Invoice Amount':<20} {'Paid Amount':<20} {'Status':<20} {'Payment Link':<20}")
+      f"{'Paid Date':<20} {'Paid Time':<20} {'Invoice Amount':<20} {'Partial Amount':<20} {'Paid Amount':<20} {'Status':<40} {'Payment Link':<20}")
 print("=" * 120)
 
-for idx, (customer_name, account_id, total_invoice, order_date, order_time, paid_date, paid_time, invoice_amount, paid_amount, status, payment_link) in enumerate(all_data, 1):
+for idx, (customer_name, account_id, total_invoice, order_date, order_time, paid_date, paid_time, invoice_amount, partial_amount, paid_amount, status, payment_link) in enumerate(all_data, 1):
     print(f"{idx:<5} {customer_name:<40} {account_id:<20} {total_invoice:<25} {order_date:<20} {order_time:<20} "
-          f"{paid_date:<20} {paid_time:<20} {invoice_amount:<20} {paid_amount:<20} {status:<20} {payment_link:<10}")
+          f"{paid_date:<20} {paid_time:<20} {invoice_amount:<20} {partial_amount:<20} {paid_amount:<20} {status:<40} {payment_link:<20}")
 
 # Save data to CSV
-csv_filename = 'full_paid_all_pages_data.csv.csv'
+csv_filename = 'Partial_paid_all_pages_data.csv'
 with open(csv_filename, mode='w', newline='', encoding='utf-8') as file:
     writer = csv.writer(file)
-    writer.writerow(['Customer Name', 'Account ID', 'Total Invoice', 'Order Date', 'Order Time', 'Paid Date', 'Paid time', 'Invoice Amount', 'Paid Amount', 'Status', 'Payment Link'])
+    writer.writerow(['Customer Name', 'Account ID', 'Total Invoice', 'Order Date', 'Order Time', 'Paid Date', 'Paid time', 'Invoice Amount', 'Partial Amount', 'Paid Amount', 'Status', 'Payment Link'])
     writer.writerows(all_data)
 
 print(f"Data saved to '{csv_filename}'.")

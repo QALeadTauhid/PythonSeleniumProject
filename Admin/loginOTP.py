@@ -8,31 +8,45 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from CommonLogin import login_to_application  # Import reusable login function
 
+# -------------------------------------------
+# Define website login credentials (Used for website login)
+# -------------------------------------------
+WEBSITE_URL = "https://admin-ptm-panel.paytome.co/login"
+WEBSITE_USERNAME = ""  # Website login email
+WEBSITE_PASSWORD = ""          # Website login password
+
+# -------------------------------------------
+# Define Gmail credentials (Used for fetching OTP)
+# -------------------------------------------
+GMAIL_USERNAME = "itteam.9@aieus.com"  # Your Gmail email
+GMAIL_PASSWORD = "BD.STBQA0708@"  # Your Gmail password (or App Password)
+
+# -------------------------------------------
 # Function to fetch OTP from Gmail
-def fetch_otp_from_gmail(username, password):
+# -------------------------------------------
+def fetch_otp_from_gmail(email_user, email_pass):
     try:
         # Connect to Gmail's IMAP server
         mail = imaplib.IMAP4_SSL("imap.gmail.com")
-        mail.login(username, password)
+        mail.login(email_user, email_pass)
         mail.select("inbox")  # Open the inbox
 
-        # Search for emails that are UNSEEN (new emails)
+        # Search for unread OTP emails
         status, messages = mail.search(None, 'UNSEEN')
-        if status != "OK":
-            print("No new messages.")
+        if status != "OK" or not messages[0]:
+            print("No new OTP emails found.")
             return None
 
-        # Get the latest email
-        messages = messages[0].split()
-        latest_email_id = messages[-1]
+        # Get the latest unread email
+        latest_email_id = messages[0].split()[-1]
 
-        # Fetch the email
+        # Fetch the email content
         status, msg_data = mail.fetch(latest_email_id, "(RFC822)")
         if status != "OK":
             print("Failed to retrieve email.")
             return None
 
-        # Parse the email
+        # Process the email content
         for response_part in msg_data:
             if isinstance(response_part, tuple):
                 msg = email.message_from_bytes(response_part[1])
@@ -40,55 +54,65 @@ def fetch_otp_from_gmail(username, password):
                 if isinstance(subject, bytes):
                     subject = subject.decode(encoding if encoding else 'utf-8')
 
-                # Check if the email contains the OTP (example for subject)
+                # Check if the email contains an OTP
                 if "OTP" in subject or "Verification Code" in subject:
-                    # Get the OTP from the email body
+                    # Extract OTP from email body
                     if msg.is_multipart():
                         for part in msg.walk():
                             content_type = part.get_content_type()
                             content_disposition = str(part.get("Content-Disposition"))
 
-                            # Get the email content
                             if content_type == "text/plain" and "attachment" not in content_disposition:
                                 body = part.get_payload(decode=True).decode()
-                                # Extract OTP from the email body (assuming OTP is a 6-digit number)
-                                otp = ''.join(filter(str.isdigit, body))  # This will extract only the digits
-                                print(f"OTP: {otp}")
+                                otp = ''.join(filter(str.isdigit, body))  # Extract digits only
+                                print(f"Fetched OTP: {otp}")
                                 return otp
                     else:
                         body = msg.get_payload(decode=True).decode()
-                        otp = ''.join(filter(str.isdigit, body))  # This will extract only the digits
-                        print(f"OTP: {otp}")
+                        otp = ''.join(filter(str.isdigit, body))  # Extract digits only
+                        print(f"Fetched OTP: {otp}")
                         return otp
         return None
     except Exception as e:
         print(f"Failed to fetch OTP: {e}")
         return None
 
-# Setup WebDriver
+# -------------------------------------------
+# Setup WebDriver & Perform Website Login
+# -------------------------------------------
 driver = webdriver.Chrome()
-driver.maximize_window()  # Ensure all elements are visible
+driver.maximize_window()  # Maximize browser window
 
-# Define login details
-LOGIN_URL = "https://admin-ptm-panel.paytome.co/login"
-USERNAME = "------"  # Gmail username (email)
-PASSWORD = "--------------"  # Gmail password or app-specific password
+# Log in to the website using the website credentials
+login_to_application(driver, WEBSITE_USERNAME, WEBSITE_PASSWORD, WEBSITE_URL)
 
-# Call the reusable login function
-login_to_application(driver, USERNAME, PASSWORD, LOGIN_URL)
-
-# Wait for OTP prompt in the application
+# -------------------------------------------
+# Wait for OTP input field & fetch OTP from Gmail
+# -------------------------------------------
 wait = WebDriverWait(driver, 30)
-otp_input = wait.until(EC.presence_of_element_located((By.XPATH, "//input[@id='otp-input']")))
 
-# Fetch OTP from Gmail
-otp = fetch_otp_from_gmail(USERNAME, PASSWORD)
-if otp:
-    # Enter the OTP in the input field
-    otp_input.send_keys(otp)
-    print("OTP entered successfully!")
-else:
-    print("Failed to fetch OTP.")
+try:
+    # Wait for OTP input field to appear
+    otp_input = wait.until(EC.presence_of_element_located((By.XPATH, "//input[@placeholder='------']")))
 
-# Continue with the rest of the test steps after OTP entry
-print("Proceeding with test steps...")
+    # Fetch OTP from Gmail using Gmail credentials
+    otp = fetch_otp_from_gmail(GMAIL_USERNAME, GMAIL_PASSWORD)
+
+    if otp:
+        # Enter OTP into the input field
+        otp_input.send_keys(otp)
+        print("OTP entered successfully!")
+
+        # Click the Verify button
+        verify_button = wait.until(EC.element_to_be_clickable((By.XPATH, "(//button[normalize-space()='Verify'])[1]")))
+        verify_button.click()
+        print("Verify button clicked successfully!")
+
+    else:
+        print("Failed to fetch OTP. Please check Gmail credentials or email format.")
+
+except Exception as e:
+    print(f"Error during OTP verification: {e}")
+
+# Continue with test steps after OTP verification
+print("Proceeding with next steps...")
