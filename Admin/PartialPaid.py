@@ -13,7 +13,7 @@ driver.maximize_window()  # Ensure all elements are visible
 # Define login details
 LOGIN_URL = "https://admin-ptm-panel.pay2me.co/login"
 USERNAME = "-----------"
-PASSWORD = "++++sVs$j+++3z201IV----"
+PASSWORD = "-------------"
 
 # Call the reusable login function
 login_to_application(driver, USERNAME, PASSWORD, LOGIN_URL)

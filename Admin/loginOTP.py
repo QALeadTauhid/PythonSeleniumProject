@@ -18,8 +18,8 @@ WEBSITE_PASSWORD = ""          # Website login password
 # -------------------------------------------
 # Define Gmail credentials (Used for fetching OTP)
 # -------------------------------------------
-GMAIL_USERNAME = "itteam.9@aieus.com"  # Your Gmail email
-GMAIL_PASSWORD = "BD.STBQA0708@"  # Your Gmail password (or App Password)
+GMAIL_USERNAME = "------"  # Your Gmail email
+GMAIL_PASSWORD = "-------"  # Your Gmail password (or App Password)
 
 # -------------------------------------------
 # Function to fetch OTP from Gmail
